@@ -1,7 +1,3 @@
-"""
-Tic Tac Toe Player
-"""
-
 import math
 import copy
 
