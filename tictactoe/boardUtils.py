@@ -1,0 +1,51 @@
+import pygame
+
+size = (480, 480)
+case_width = size[0] / 3
+cross = pygame.image.load("assets/cross.png")
+cross = pygame.transform.scale(cross, (size[0] / 6, size[0] / 6))
+circle = pygame.image.load("assets/circle.png")
+circle = pygame.transform.scale(circle, (size[0] / 6, size[0] / 6))
+
+
+def getMouseCoord(x, y):
+    mouse_pos_x = ((x // case_width) * size[0] / 3) + size[0] / 12
+    mouse_pos_y = ((y // case_width) * size[0] / 3) + size[0] / 12
+    return mouse_pos_x, mouse_pos_y
+
+def BotBoardCoords(x, y):
+    case_x = (x * size[0] / 3) + size[0] / 12
+    case_y = (y * size[0] / 3) + size[0] / 12
+    return case_x, case_y
+
+def getBoardCoords(x, y):
+    return int(x // case_width), int(y // case_width)
+
+
+def placeCircle(board, coord):
+    board.blit(circle, coord)
+
+
+def placeCross(board, coord):
+    board.blit(cross, coord)
+
+class X_start(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.image.load("assets/player_x.png")
+        self.image = pygame.transform.scale(self.image, (size[0] / 2, size[0] / 2))
+        self.rect = self.image.get_rect()
+
+class O_start(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.image.load("assets/player_o.png")
+        self.image = pygame.transform.scale(self.image, (size[0] / 2, size[0] / 2))
+        self.rect = self.image.get_rect()
+
+class Restart(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.image.load("assets/tictactoe_restart.png")
+        self.image = pygame.transform.scale(self.image, (size[0] / 2, size[0] / 2))
+        self.rect = self.image.get_rect()
