@@ -14,6 +14,8 @@ screen = pygame.display.set_mode(size)
 crosses = []
 circles = []
 board = initial_state()
+bot = O
+main_player = X
 
 running = True
 
@@ -24,12 +26,18 @@ while running:
         elif event.type == pygame.MOUSEBUTTONDOWN:
             coords = getMouseCoord(event.pos[0], event.pos[1])
             board_coords = getBoardCoords(event.pos[0], event.pos[1])
-            if coords is not None and board[board_coords[0]][board_coords[1]] is None:
-                board[board_coords[0]][board_coords[1]] = player(board)
+            if coords is not None and board[board_coords[0]][board_coords[1]] is None and player(board) == main_player:
+                board[board_coords[0]][board_coords[1]] = main_player
                 if board[board_coords[0]][board_coords[1]] == X:
                     crosses.append(coords)
                 elif board[board_coords[0]][board_coords[1]] == O:
                     circles.append(coords)
+
+        if player(board) == bot:
+            bot_coords = minimax(board)
+            board_bot_coords = BotBoardCoords(bot_coords[0], bot_coords[1])
+            board[bot_coords[0]][bot_coords[1]] = bot
+            circles.append(board_bot_coords)
 
     # updating the screen
     screen.blit(background, (0, 0))
