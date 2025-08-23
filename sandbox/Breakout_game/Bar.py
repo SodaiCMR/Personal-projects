@@ -10,6 +10,7 @@ class Bar():
         self.w = 50
         self.h = 10
         self.velocity = 15
+        self.trajectory = []
 
     def draw(self, screen):
         pygame.draw.rect(screen, self.color, (self.x, self.y, self.w, self.h))
@@ -21,3 +22,10 @@ class Bar():
     def move_left(self):
         if self.x > WALL_WIDTH:
             self.x -= self.velocity
+
+    def getTrajectory(self):
+        if len(self.trajectory) == 10:
+            self.trajectory.pop(0)
+        self.trajectory.append(self.x)
+
+        return self.trajectory

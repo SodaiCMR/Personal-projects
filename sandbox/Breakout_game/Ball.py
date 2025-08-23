@@ -2,19 +2,22 @@ import pygame
 import random
 from utils import *
 
+# TODO prendre en compte l'angle de chute de la balle
 
 class Ball:
 
     def __init__(self):
         self.color = (255, 0, 0)
         self.radius = 35
-        self.x = random.randint(self.radius, WIDTH - self.radius)
+        # self.x = random.randint(self.radius, WIDTH - self.radius)
+        self.x = 345
         self.y = random.randint(self.radius, 240)
-        self.x_speed = 2
+        self.x_speed = 0
         self.y_speed = 0
         self.gravity = 0.2
         self.bounce_stop = 0.2
         self.retention = 0.8
+        self.trajectory = []
 
     def draw(self, screen):
         pygame.draw.circle(screen, self.color, (self.x, self.y), self.radius)
@@ -38,7 +41,11 @@ class Ball:
             if abs(self.x_speed) < self.bounce_stop:
                 self.x_speed = 0
 
-        if pygame.
-
-
         return self.x_speed, self.y_speed
+
+    def getTrajectory(self):
+        if len(self.trajectory) == 5:
+            self.trajectory.pop(0)
+        self.trajectory.append(self.y)
+
+        return self.trajectory
