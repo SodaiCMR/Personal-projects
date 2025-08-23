@@ -1,9 +1,10 @@
 import pygame
 from Bar import Bar
 from Ball import Ball
+from utils import *
 
 pygame.init()
-screen = pygame.display.set_mode((640, 640))
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Breakout Game")
 screen.fill((0, 0, 0))
 clock = pygame.time.Clock()
@@ -15,10 +16,12 @@ bind_pressed = {}
 
 while running:
     screen.fill((0, 0, 0))
-    screen.blit(bar.img, bar.rect)
-    screen.blit(ball.img, ball.rect)
-    ball.drop(bar)
-    # ball.bounce(bar)
+    walls = draw_walls(screen)
+    bar.draw(screen)
+    ball.draw(screen)
+    ball.move()
+    ball.x_speed = ball.newton()[0]
+    ball.y_speed = ball.newton()[1]
 
     if bind_pressed.get(pygame.K_RIGHT):
         bar.move_right()
