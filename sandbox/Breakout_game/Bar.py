@@ -1,6 +1,7 @@
 import pygame
 from utils import *
 
+
 class Bar():
 
     def __init__(self):

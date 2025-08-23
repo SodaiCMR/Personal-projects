@@ -13,6 +13,7 @@ def draw_walls(screen):
 
     return [wall_left, wall_bottom, wall_right]
 
+
 def checkBallBarTouch(ball, bar):
     lower_ball = ball.x - ball.radius
     upper_ball = ball.x + ball.radius
