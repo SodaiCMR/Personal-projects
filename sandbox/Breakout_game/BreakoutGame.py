@@ -25,10 +25,9 @@ while running:
     ball.x_speed = ball.newton()[0]
     ball.y_speed = ball.newton()[1]
 
-    print((ball.trajectory[-1] - ball.trajectory[0]) / len(ball.trajectory))
     if checkBallBarTouch(ball, bar):
         ball.x_speed += 2 * (bar.trajectory[-1] - bar.trajectory[0]) / len(bar.trajectory)
-        ball.y_speed *= - (1 + (1 - ball.retention))
+        ball.y_speed *= - 1.12
 
     if bind_pressed.get(pygame.K_RIGHT):
         bar.move_right()

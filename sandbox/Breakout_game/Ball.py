@@ -2,15 +2,13 @@ import pygame
 import random
 from utils import *
 
-# TODO prendre en compte l'angle de chute de la balle
 
 class Ball:
 
     def __init__(self):
         self.color = (255, 0, 0)
         self.radius = 35
-        # self.x = random.randint(self.radius, WIDTH - self.radius)
-        self.x = 345
+        self.x = random.randint(self.radius, WIDTH - self.radius)
         self.y = random.randint(self.radius, 240)
         self.x_speed = 0
         self.y_speed = 0
