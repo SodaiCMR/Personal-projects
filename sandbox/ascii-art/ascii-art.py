@@ -4,7 +4,6 @@ from PIL import Image
 import os
 
 cap = cv.VideoCapture('vegeta_ssj.mp4')
-# cap = cv.VideoCapture('black_hole.mp4')
 
 while cap.isOpened():
     success, frame = cap.read()
