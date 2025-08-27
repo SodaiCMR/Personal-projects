@@ -1,40 +1,22 @@
 import cv2 as cv
-import numpy as np
+from img_to_ascii import *
+from PIL import Image
 import os
 
-video_size = (352, 240)
-reversed_video_size = (240, 352)
-
-outpath = os.path.join("ascii-art", "asciied_video.mp4v")
 cap = cv.VideoCapture('vegeta_ssj.mp4')
-ascii_map = ["@", "S", "%", "?", "*", "+", ";", ":", ",", ".", "-", "&", "é", "_", "#"]
-asciied_frame = np.zeros(reversed_video_size, dtype=np.uint8)
-fourcc = cv.VideoWriter.fourcc(*'XVID')
-out = cv.VideoWriter(outpath, fourcc, 20, video_size)
+# cap = cv.VideoCapture('black_hole.mp4')
 
 while cap.isOpened():
-    ret, frame = cap.read()
-    if not ret:
+    success, frame = cap.read()
+    if not success:
         break
     gray_frame = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
-    resized_frame = cv.resize(gray_frame, video_size, interpolation=cv.INTER_AREA)
-    for row in range(resized_frame.shape[0]):
-        for col in range(resized_frame.shape[1]):
-            min_value = int(resized_frame[row, col] // 17) - 1
-            mapped_index = max(0, min_value)
-            text = ascii_map[mapped_index]
-            cv.putText(asciied_frame, text, (row,col), cv.FONT_HERSHEY_PLAIN, 0.4, (255, 255, 255) ,1)
-            # out.write(asciied_frame)
-            # print(ascii_map[mapped_index])
-            # asciied_frame[row, col] = ascii_map[mapped_index]
-
-    # out.write(asciied_frame)
-    # cv.imshow('video', resized_frame)
-    cv.imshow("img", asciied_frame)
+    frame_as_img = Image.fromarray(gray_frame)
+    os.system('cls' if os.name == 'nt' else 'clear')
+    image_to_ascii(frame_as_img)
     delay = int(1000 / 60)
     if cv.waitKey(delay) == ord('q'):
         break
 
 cap.release()
-out.release()
 cv.destroyAllWindows()
